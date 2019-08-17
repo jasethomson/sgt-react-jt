@@ -13,7 +13,6 @@ function Grade(props) {
           <td>{name}</td>
           <td>{course}</td>
           <td>{grade}</td>
-          <button className="btn btn-danger">Delete</button>
         </tr>
       </tbody>
     );
@@ -29,7 +28,6 @@ function Grade(props) {
 }
 
 function GradeTable(props) {
-
   return (
     <table className="table">
       <thead>
@@ -37,10 +35,19 @@ function GradeTable(props) {
           <th>Name</th>
           <th>Course</th>
           <th>Grade</th>
-          <th>Operations</th>
         </tr>
       </thead>
-      <Grade/>
+      {
+        props.grades.map(grades => {
+          return (
+            <Grade
+              key={grades.id}
+              name={grades.name}
+              course={grades.course}
+              grade={grades.grade} />
+          );
+        })
+      }
     </table>
   );
 }
