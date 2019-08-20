@@ -11,6 +11,7 @@ class App extends React.Component {
       average: 0
     };
     this.avgGrade = null;
+    this.addGrade = this.addGrade.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,19 @@ class App extends React.Component {
     this.avgGrade = Math.floor(gradeTotal / avgGradeArray.length);
   }
 
+  addGrade(newGrade) {
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newGrade)
+    };
+    fetch('/api/grades', req)
+      .then(res => res.json())
+      .then(wooGrade => {
+        const allGrades = this.state.grades.concat(wooGrade);
+        this.setState({ grades: allGrades });
+      });
+  }
   render() {
     return (
       <div className="container">
